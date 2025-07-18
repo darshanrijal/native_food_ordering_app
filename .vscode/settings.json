@@ -6,5 +6,9 @@
   },
   "biome.enabled": false,
   "files.associations": { "*.css": "tailwindcss" },
-  "tailwindCSS.classAttributes": ["className", "contentContainerClassName"]
+  "tailwindCSS.classAttributes": [
+    "className",
+    "contentContainerClassName",
+    "textClassName"
+  ]
 }
