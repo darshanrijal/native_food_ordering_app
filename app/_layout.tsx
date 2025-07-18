@@ -1,9 +1,13 @@
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import "./globals.css";
 
 export default function RootLayout() {
+  const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+    unsavedChangesWarning: false,
+  });
   const [fontsLoaded, error] = useFonts({
     "quicksand-bold": require("../assets/fonts/Quicksand-Bold.ttf"),
     "quicksand-medium": require("../assets/fonts/Quicksand-Medium.ttf"),
@@ -27,10 +31,12 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    />
+    <ConvexProvider client={convex}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+    </ConvexProvider>
   );
 }
