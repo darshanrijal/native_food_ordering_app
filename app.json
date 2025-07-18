@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "rn_app",
-    "slug": "rn_app",
+    "name": "FoodDelivery",
+    "slug": "food-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "rnapp",
+    "scheme": "fooddelivery",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
