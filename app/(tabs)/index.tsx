@@ -1,8 +1,13 @@
 import { CartButton } from "@/components/cart-button";
 import { images, offers } from "@/constants";
+import { api } from "@/convex/_generated/api";
+import { auth } from "@/lib/auth";
 import { clsx } from "clsx";
+import { useQuery } from "convex/react";
+import { Redirect } from "expo-router";
 import React from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
@@ -12,6 +17,22 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
+  const userId = auth.getToken();
+
+  const user = useQuery(api.users.getUser, { userId });
+
+  if (user === undefined) {
+    return (
+      <View className="flex flex-1 items-center justify-center">
+        <ActivityIndicator color={"orange"} />
+      </View>
+    );
+  }
+
+  if (user === null) {
+    return <Redirect href={"/sign-in"} />;
+  }
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <FlatList

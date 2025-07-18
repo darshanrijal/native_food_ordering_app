@@ -1,5 +1,8 @@
 import { CustomInput } from "@/components/custom-input";
 import { CustomButton } from "@/components/custon-button";
+import { api } from "@/convex/_generated/api";
+import { auth } from "@/lib/auth";
+import { useMutation } from "convex/react";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -12,6 +15,8 @@ export default function SignUp() {
     password: "",
   });
 
+  const registerUser = useMutation(api.users.registerUser);
+
   const submit = async () => {
     if (!form.name || !form.email || !form.password) {
       return Alert.alert("Error", "Enter all valid fields");
@@ -20,10 +25,15 @@ export default function SignUp() {
     setIsSubmitting(true);
 
     try {
-      // Sign in fn
-
-      Alert.alert("Success", "User registered successfully");
-      router.replace("/");
+      const res = await registerUser(form);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      if (res.id) {
+        await auth.saveToken(res.id);
+        Alert.alert("Success", "User registered successfully");
+        router.replace("/");
+      }
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert("Error", error.message);

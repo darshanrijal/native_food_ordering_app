@@ -1,5 +1,6 @@
 import { images } from "@/constants";
-import { Slot } from "expo-router";
+import { auth } from "@/lib/auth";
+import { Redirect, Slot } from "expo-router";
 import React from "react";
 import {
   Dimensions,
@@ -12,6 +13,10 @@ import {
 } from "react-native";
 
 export default function AuthLayout() {
+  const isAuthenticated = !!auth.getToken();
+  if (isAuthenticated) {
+    return <Redirect href="/" />;
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "height" : "padding"}

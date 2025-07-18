@@ -1,5 +1,8 @@
 import { CustomInput } from "@/components/custom-input";
 import { CustomButton } from "@/components/custon-button";
+import { api } from "@/convex/_generated/api";
+import { auth } from "@/lib/auth";
+import { useMutation } from "convex/react";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -10,6 +13,7 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+  const signIn = useMutation(api.users.signIn);
 
   const submit = async () => {
     if (!form.email || !form.password) {
@@ -20,10 +24,17 @@ export default function SignIn() {
     setIsSubmitting(true);
 
     try {
-      // Sign in fn
+      const res = await signIn(form);
 
-      Alert.alert("Success", "User signed in successfully");
-      router.replace("/");
+      if (res.error) {
+        throw new Error(res.error);
+      }
+
+      if (res.id) {
+        await auth.saveToken(res.id);
+        Alert.alert("Success", "User signed in successfully");
+        router.replace("/");
+      }
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert("Error", error.message);

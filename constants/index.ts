@@ -200,3 +200,5 @@ export const images = {
   trash,
   user,
 };
+
+export const USER_AUTH_TOKEN = "fooddelivery_user_auth_token";

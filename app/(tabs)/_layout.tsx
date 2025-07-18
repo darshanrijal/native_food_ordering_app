@@ -1,8 +1,9 @@
+import { auth } from "@/lib/auth";
 import { Redirect, Slot } from "expo-router";
 import React from "react";
 
 export default function Layout() {
-  const isAuthenticated = false;
+  const isAuthenticated = !!auth.getToken();
   if (!isAuthenticated) {
     return <Redirect href={"/sign-in"} />;
   }
