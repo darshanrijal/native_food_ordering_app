@@ -1,5 +1,6 @@
 import { images } from "@/constants";
 import { auth } from "@/lib/auth";
+import { TabBarIconProps } from "@/types";
 import { clsx } from "clsx";
 import { Redirect, Tabs } from "expo-router";
 import React from "react";

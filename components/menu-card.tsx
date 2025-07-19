@@ -1,4 +1,5 @@
 import { Doc } from "@/convex/_generated/dataModel";
+import { useCartStore } from "@/lib/cart";
 import React from "react";
 import { Image, Platform, Text, TouchableOpacity } from "react-native";
 
@@ -7,6 +8,8 @@ interface MenuCardProps {
 }
 
 export function MenuCard({ menu }: MenuCardProps) {
+  const { addItem } = useCartStore();
+
   return (
     <TouchableOpacity
       className="rounded-2xl bg-white p-4 shadow-md"
@@ -14,6 +17,14 @@ export function MenuCard({ menu }: MenuCardProps) {
         Platform.OS === "android"
           ? { elevation: 5, shadowColor: "#878787" }
           : {}
+      }
+      onPress={() =>
+        addItem({
+          id: menu._id,
+          name: menu.name,
+          price: menu.price,
+          image_url: menu.imageUrl,
+        })
       }
     >
       <Image
@@ -30,7 +41,16 @@ export function MenuCard({ menu }: MenuCardProps) {
       <Text className="body-regular mb-3 text-center text-gray-400">
         From NPR {menu.price}
       </Text>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          addItem({
+            id: menu._id,
+            name: menu.name,
+            price: menu.price,
+            image_url: menu.imageUrl,
+          });
+        }}
+      >
         <Text className="paragraph-bold text-center text-primary">
           Add to cart
         </Text>
