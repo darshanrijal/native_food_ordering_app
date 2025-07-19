@@ -13,6 +13,10 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as categories from "../categories.js";
+import type * as menu from "../menu.js";
+import type * as seed from "../seed.js";
+import type * as storage from "../storage.js";
 import type * as users from "../users.js";
 
 /**
@@ -24,6 +28,10 @@ import type * as users from "../users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  categories: typeof categories;
+  menu: typeof menu;
+  seed: typeof seed;
+  storage: typeof storage;
   users: typeof users;
 }>;
 export declare const api: FilterApi<

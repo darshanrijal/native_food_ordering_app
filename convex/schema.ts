@@ -16,16 +16,18 @@ export default defineSchema({
     name: v.string(),
     description: v.string(),
     imageUrl: v.string(),
-    rating: v.float64(),
-    calories: v.int64(),
-    protien: v.int64(),
-    price: v.float64(),
-    categoryId: v.id("categories"),
-  }).index("category_id_fk", ["categoryId"]),
+    rating: v.number(),
+    calories: v.number(),
+    protien: v.number(),
+    price: v.number(),
+    categoryId: v.string(),
+  })
+    .index("category_id_fk", ["categoryId"])
+    .index("name_idx", ["name"]),
   customization: defineTable({
     name: v.string(),
-    price: v.int64(),
-    value: v.union(
+    price: v.number(),
+    type: v.union(
       v.literal("topping"),
       v.literal("side"),
       v.literal("size"),
@@ -37,7 +39,7 @@ export default defineSchema({
     ),
   }),
   menuCustomizations: defineTable({
-    menuId: v.id("menu"),
-    customizationId: v.id("customization"),
+    menuId: v.string(),
+    customizationId: v.string(),
   }).index("fks", ["menuId", "customizationId"]),
 });

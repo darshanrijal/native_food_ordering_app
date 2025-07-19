@@ -9,6 +9,7 @@
   "tailwindCSS.classAttributes": [
     "className",
     "contentContainerClassName",
-    "textClassName"
+    "textClassName",
+    "columnWrapperClassName"
   ]
 }
