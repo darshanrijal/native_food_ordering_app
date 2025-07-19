@@ -23,7 +23,11 @@ export default defineSchema({
     categoryId: v.string(),
   })
     .index("category_id_fk", ["categoryId"])
-    .index("name_idx", ["name"]),
+    .index("name_idx", ["name"])
+    .searchIndex("search_by_name", {
+      searchField: "name",
+    }),
+
   customization: defineTable({
     name: v.string(),
     price: v.number(),
