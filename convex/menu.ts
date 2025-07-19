@@ -27,3 +27,29 @@ export const get = query({
     return await q.take(args.limit ?? 100);
   },
 });
+
+export const getOne = query({
+  args: {
+    id: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const item = await ctx.db
+      .query("menu")
+      .filter((q) => q.eq(q.field("_id"), args.id))
+      .unique();
+    if (!item) {
+      return null;
+    }
+
+    const category = await ctx.db
+      .query("categories")
+      .filter((q) => q.eq(q.field("_id"), item.categoryId))
+      .unique();
+    if (!category) {
+      return null;
+    }
+
+    const data = { ...item, category };
+    return data;
+  },
+});
