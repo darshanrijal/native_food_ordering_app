@@ -8,7 +8,7 @@ export const CartButton = () => {
     <Pressable
       android_ripple={{
         color: "#ffffff50",
-        radius: Infinity,
+        radius: Number.POSITIVE_INFINITY,
       }}
       className="cart-btn"
       onPress={() => {}}

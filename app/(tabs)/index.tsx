@@ -19,7 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   const userId = auth.getToken();
 
-  const user = useQuery(api.users.getUser, { userId });
+  const user = useQuery(api.users.getUser, userId ? { userId } : "skip");
 
   if (user === undefined) {
     return (
@@ -100,7 +100,7 @@ export default function Index() {
             </View>
           );
         }}
-        contentContainerClassName="pb-28 px-5"
+        contentContainerClassName="pb-10 px-5"
       />
     </SafeAreaView>
   );

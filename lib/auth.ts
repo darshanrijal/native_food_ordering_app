@@ -12,11 +12,11 @@ const getToken = () => {
     if (token) {
       return token;
     } else {
-      return undefined;
+      return null;
     }
   } catch (error) {
     console.error("Failed to retrieve token from SecureStore", error);
-    return undefined;
+    return null;
   }
 };
 
